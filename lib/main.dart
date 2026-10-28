@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:stock_facile/database/database_helper.dart';
 
-void main() {
-  runApp(MyApp());
-  
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await DatabaseHelper.instance.database;
+
+  runApp(const StockFacileApp());
 }
-class MyApp extends StatelessWidget {
-  const new({super.key});
+
+class StockFacileApp extends StatelessWidget {
+  const StockFacileApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "StockFacile",
+      title: 'StockFacile',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
-      
-      
-    );
-  }
-}
-class HomePage extends StatefulWidget {
-  const new({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('StockFacile'),
-        backgroundColor: Colors.redAccent[150],
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.teal,
+      ),
+      home: const Scaffold(
+        appBar: AppBar(title: const Text('StockFacile')),
+        body: Center(
+          child: Text('Base SQLite initialisée'),
+        ),
       ),
     );
   }
